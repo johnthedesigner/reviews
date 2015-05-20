@@ -23,8 +23,8 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		$users = User::all()->toJson();
-		return view('users.index', $users->toArray());
+		$users = User::all()->toArray();
+		return view('users.index', $users);
 	}
 
 	/**
@@ -55,8 +55,8 @@ class UserController extends Controller {
 	 */
 	public function show($id)
 	{
-		$user = User::find($id)->toJson();
-		return view('users.show', $user->toArray());
+		$user = User::find($id)->toArray();
+		return view('users.show', $user);
 	}
 
 	/**
