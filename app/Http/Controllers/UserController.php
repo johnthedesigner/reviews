@@ -65,7 +65,8 @@ class UserController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$user = User::find($id)->toArray();
+		return view('users.edit', array('user' => $user));
 	}
 
 	/**

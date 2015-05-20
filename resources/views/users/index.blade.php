@@ -25,7 +25,7 @@
 						<?php
 							foreach ( $users as $user ) {
 								echo '<tr>';
-								$user_link = action('UserController@show', array('id' => $user['id']));
+								$user_link = action('UserController@edit', array('id' => $user['id']));
 								echo '<td><a href="'.$user_link.'">Edit</a></td>';	
 								foreach ( $user as $value ) {
 									echo '<td>'.$value.'</td>';
