@@ -5,8 +5,6 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use Zizaco\Entrust;
-
 class AdminController extends Controller {
 
 	/**
@@ -26,7 +24,7 @@ class AdminController extends Controller {
 	 */
 	public function index()
 	{
-		if ( Entrust::hasRole('admin') ){
+		if ( $request->user()->hasRole('admin') ){
 			return view('admin');
 		} else {
 			return view('home');
