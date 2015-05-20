@@ -24,7 +24,7 @@ class AdminController extends Controller {
 	 */
 	public function index()
 	{
-		if ( $user->hasRole('admin') ){
+		if ( Entrust::hasRole('admin') ){
 			return view('admin');
 		} else {
 			return view('home');
