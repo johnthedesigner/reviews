@@ -149,6 +149,7 @@ return [
 			JL - Additional Providers
 		*/
 		'Zizaco\Entrust\EntrustServiceProvider',
+		'Illuminate\Html\HtmlServiceProvider',
 
 	],
 
@@ -198,6 +199,8 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Entrust' 	=> 'Zizaco\Entrust\EntrustFacade',
+		'Form'=> 'Illuminate\Html\FormFacade',
+		'HTML'=> 'Illuminate\Html\HtmlFacade',
 
 	],
 
