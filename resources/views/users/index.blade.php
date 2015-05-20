@@ -8,8 +8,36 @@
 				<div class="panel-heading">List Users</div>
 
 				<div class="panel-body">
-					This is the User Listing!<br>
-					<?php var_dump($users); ?>
+					
+					<?php
+						var_dump($users);
+						// Get field names
+						$table_fields = array_keys($users);
+					?>
+					
+					<!-- Users Table -->
+					<table class="table">
+						<thead>
+							<tr>
+						<?php
+							foreach ( $users[0] as $key => $value ) {
+							echo '<th>'.$key.'</th>';
+							};
+						?>
+							</tr>
+						</thead>
+						<tbody>
+						<?php
+							foreach ( $users as $user ) {
+							echo '<tr>';								
+								foreach ( $user as $value ) {
+								echo '<th>'.$value.'</th>';
+								}
+							echo '</tr>';
+							}
+						?>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
