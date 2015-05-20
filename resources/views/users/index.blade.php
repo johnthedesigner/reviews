@@ -29,9 +29,10 @@
 						<tbody>
 						<?php
 							foreach ( $users as $user ) {
-							echo '<tr>';								
+							echo '<tr>';
+							echo '<td><a href="'.$user->id.'">Edit</a></td>';							
 								foreach ( $user as $value ) {
-								echo '<th>'.$value.'</th>';
+								echo '<td>'.$value.'</td>';
 								}
 							echo '</tr>';
 							}
