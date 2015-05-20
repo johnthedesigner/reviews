@@ -24,4 +24,4 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Entrust::routeNeedsRole('admin', 'admin');
+Entrust::routeNeedsRole('admin', 'admin', Redirect::to('home'));
