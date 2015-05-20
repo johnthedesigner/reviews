@@ -54,7 +54,7 @@ class UserController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		return User::find($id)->toJson();
 	}
 
 	/**
@@ -65,7 +65,7 @@ class UserController extends Controller {
 	 */
 	public function edit($id)
 	{
-		return User::find($id)->toJson();
+		//
 	}
 
 	/**

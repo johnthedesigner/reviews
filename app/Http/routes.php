@@ -20,7 +20,6 @@ Route::resource('admin', 'AdminController');
 Route::resource('reviews', 'ReviewController');
 
 Route::resource('users', 'UserController');
-Route::get('user/{user}', 'UserController@show');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
