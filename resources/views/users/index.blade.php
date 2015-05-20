@@ -14,6 +14,7 @@
 						<thead>
 							<tr>
 						<?php
+							echo '<th></th>';
 							foreach ( $users[0] as $key => $value ) {
 							echo '<th>'.$key.'</th>';
 							};
@@ -24,7 +25,7 @@
 						<?php
 							foreach ( $users as $user ) {
 								echo '<tr>';
-								echo '<td><a href="'.$user['id'].">Edit</a></td>';							
+								echo '<td><a href="'.$user['id'].'">Edit</a></td>';							
 								foreach ( $user as $value ) {
 									echo '<td>'.$value.'</td>';
 								}
