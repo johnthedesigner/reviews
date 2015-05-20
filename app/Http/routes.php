@@ -19,10 +19,11 @@ Route::resource('admin', 'AdminController');
 
 Route::resource('reviews', 'ReviewController');
 
+Route::resource('users', 'UserController');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-	'users' => 'UserController',
 ]);
 
 Entrust::routeNeedsRole('admin', 'admin', Redirect::to('home'));
