@@ -22,6 +22,7 @@ Route::resource('reviews', 'ReviewController');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
+	'users' => 'UserController',
 ]);
 
 Entrust::routeNeedsRole('admin', 'admin', Redirect::to('home'));
