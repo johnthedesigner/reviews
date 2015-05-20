@@ -1,5 +1,13 @@
 <?php
 
+// Heroku Dev DB Info
+$url = parse_url(getenv("DATABASE_URL"));
+
+$dev_host = $url["host"];
+$dev_username = $url["user"];
+$dev_password = $url["pass"];
+$dev_database = substr($url["path"], 1);
+
 return [
 
 	/*
@@ -26,7 +34,7 @@ return [
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'pgsql',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -64,12 +72,23 @@ return [
 			'strict'    => false,
 		],
 
+//		'pgsql' => [
+//			'driver'   => 'pgsql',
+//			'host'     => env('DB_HOST', 'localhost'),
+//			'database' => env('DB_DATABASE', 'forge'),
+//			'username' => env('DB_USERNAME', 'forge'),
+//			'password' => env('DB_PASSWORD', ''),
+//			'charset'  => 'utf8',
+//			'prefix'   => '',
+//			'schema'   => 'public',
+//		],
+
 		'pgsql' => [
 			'driver'   => 'pgsql',
-			'host'     => env('DB_HOST', 'localhost'),
-			'database' => env('DB_DATABASE', 'forge'),
-			'username' => env('DB_USERNAME', 'forge'),
-			'password' => env('DB_PASSWORD', ''),
+			'host'     => $dev_host,
+			'database' => $dev_database,
+			'username' => $dev_username,
+			'password' => $dev_password,
 			'charset'  => 'utf8',
 			'prefix'   => '',
 			'schema'   => 'public',
