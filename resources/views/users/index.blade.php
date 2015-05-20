@@ -9,12 +9,6 @@
 
 				<div class="panel-body">
 					
-					<?php
-						var_dump($users);
-						// Get field names
-						$table_fields = array_keys($users);
-					?>
-					
 					<!-- Users Table -->
 					<table class="table">
 						<thead>
@@ -29,12 +23,12 @@
 						<tbody>
 						<?php
 							foreach ( $users as $user ) {
-							echo '<tr>';
-							echo '<td><a href="'.$user->id.'">Edit</a></td>';							
+								echo '<tr>';
+								echo '<td><a href="'.$user['id'].">Edit</a></td>';							
 								foreach ( $user as $value ) {
-								echo '<td>'.$value.'</td>';
+									echo '<td>'.$value.'</td>';
 								}
-							echo '</tr>';
+								echo '</tr>';
 							}
 						?>
 						</tbody>
