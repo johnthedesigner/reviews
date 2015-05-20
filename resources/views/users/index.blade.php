@@ -25,7 +25,7 @@
 						<?php
 							foreach ( $users as $user ) {
 								echo '<tr>';
-								echo link_to_route('users', $user->name, array('id' => $user->id));							
+								echo link_to_route('users', $user['name'], array('id' => $user['id']));							
 								foreach ( $user as $value ) {
 									echo '<td>'.$value.'</td>';
 								}
