@@ -65,7 +65,7 @@ class UserController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		return User::find($id)->toJson();
 	}
 
 	/**
