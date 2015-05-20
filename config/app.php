@@ -144,6 +144,11 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
+		
+		/*
+			JL - Additional Providers
+		*/
+		'Zizaco\Entrust\EntrustServiceProvider',
 
 	],
 
@@ -192,6 +197,7 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+		'Entrust' 	=> 'Zizaco\Entrust\EntrustFacade',
 
 	],
 
