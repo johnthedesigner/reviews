@@ -24,7 +24,11 @@ class AdminController extends Controller {
 	 */
 	public function index()
 	{
-		return view('admin');
+		if ( $user->hasRole('admin') ){
+			return view('admin');
+		} else {
+			return view('home');
+		}
 	}
 
 	/**
