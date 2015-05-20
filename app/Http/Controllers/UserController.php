@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller {
 
+	/*
+	* Require authenticated user
+	*/
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -14,7 +21,7 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return User::all()->toJson();
 	}
 
 	/**
