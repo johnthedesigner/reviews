@@ -24,11 +24,7 @@ class AdminController extends Controller {
 	 */
 	public function index()
 	{
-		if ( Request::user()->hasRole('admin') ){
 			return view('admin');
-		} else {
-			return view('home');
-		}
 	}
 
 	/**
