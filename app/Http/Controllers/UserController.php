@@ -24,7 +24,7 @@ class UserController extends Controller {
 	public function index()
 	{
 		$users = User::all()->toArray();
-		return view('users.index', $users);
+		return view('users.index', array('users' => $users);
 	}
 
 	/**
