@@ -24,6 +24,7 @@ class UserController extends Controller {
 	public function index()
 	{
 		$users = User::all()->toJson();
+		return view('users', $users);
 	}
 
 	/**
