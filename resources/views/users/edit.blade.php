@@ -19,7 +19,7 @@
 						</div>
 					@endif
 
-					<form class="form-horizontal" role="form" method="PATCH" action="{{ url('/users/edit') }}">
+					<form class="form-horizontal" role="form" method="PATCH" action="{{ url('/users/'.$id) }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
