@@ -19,20 +19,20 @@
 						</div>
 					@endif
 
-					<?php echo Form::model($user, array('route' => array('users.update', $user['id']), 'method' => 'patch' ) ); ?>
+					<?php echo Form::model($user, array('route' => array('users.update', $user['id']), 'method' => 'put' ) ); ?>
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
 							<?php echo Form::label('name', 'Name', array('class' => 'col-md-4 control-label')); ?>
 							<div class="col-md-6">
-								<?php echo Form::text('name', 'John Doe'); ?>
+								<?php echo Form::text('name'); ?>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<?php echo Form::label('email', 'E-Mail Address', array('class' => 'col-md-4 control-label')); ?>
 							<div class="col-md-6">
-								<?php echo Form::text('email', 'John@johnthedesigner.com'); ?>
+								<?php echo Form::text('email'); ?>
 							</div>
 						</div>
 
