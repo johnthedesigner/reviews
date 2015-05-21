@@ -19,7 +19,7 @@
 						</div>
 					@endif
 
-					<?php echo Form::model($user, array('route' => array('users.update', $user['id']))); ?>
+					<?php echo Form::model($user, array('route' => array('users.update', $user['id']), 'method' => 'patch' ) ); ?>
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
