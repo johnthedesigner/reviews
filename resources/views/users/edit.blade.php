@@ -19,28 +19,26 @@
 						</div>
 					@endif
 
-					<form class="form-horizontal" role="form" method="PATCH" action="{{ url('/users/'.$user['id'].'/update') }}">
+					<?php echo Form::model($user, array('route' => array('user.update', $user->id))); ?>
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
+							<?php echo Form::label('name', 'Name', array('class' => 'col-md-4 control-label')); ?>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="<?php echo $user['name']; ?>">
+								<?php echo Form::text('name', 'John Doe'); ?>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
+							<?php echo Form::label('email', 'E-Mail Address', array('class' => 'col-md-4 control-label')); ?>
 							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="<?php echo $user['email']; ?>">
+								<?php echo Form::text('email', 'John@johnthedesigner.com'); ?>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									Update
-								</button>
+								<?php echo Form::submit('Click Me!'); ?>
 							</div>
 						</div>
 					</form>
