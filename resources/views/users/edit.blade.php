@@ -10,7 +10,7 @@
 					<!-- if there are creation errors, they will show here -->
 					{{ HTML::ul($errors->all()) }}
 					
-					{{ Form::model($user, array('route' => array('users.update', $user->id), 'method' => 'PUT')) }}
+					{{ Form::model($user, array('route' => array('users.update', $user['id']), 'method' => 'PUT')) }}
 					
 					    <div class="form-group">
 					        {{ Form::label('name', 'Name') }}
