@@ -21,6 +21,11 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
+		$users = User::all()->toArray();
+//		return view('users.index', array('users' => $users));
+
+		return View::make('users.index')
+			->with('users', $users);
 	}
 
 	/**
@@ -51,6 +56,11 @@ class UserController extends Controller {
 	 */
 	public function show($id)
 	{
+		$user = User::find($id)->toArray();
+//		return view('users.show', array('user' => $user));
+
+		return View::make('users.show')
+			->with('users', $users);
 	}
 
 	/**
@@ -61,6 +71,11 @@ class UserController extends Controller {
 	 */
 	public function edit($id)
 	{
+		$user = User::find($id)->toArray();
+//		return view('users.edit', array('user' => $user));
+
+		return View::make('users.edit')
+			->with('user', $user);
 	}
 
 	/**
