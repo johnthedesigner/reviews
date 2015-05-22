@@ -87,7 +87,30 @@ class UserController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+        // validate
+        // read more on validation at http://laravel.com/docs/validation
+        $rules = array(
+            'name'       => 'required',
+            'email'      => 'required|email'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return Redirect::to('users/' . $id . '/edit')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            // store
+            $user = User::find($id);
+            $user->name       = Input::get('name');
+            $user->email      = Input::get('email');
+            $user->save();
+
+            // redirect
+            Session::flash('message', 'Successfully updated user!');
+            return Redirect::to('users');
+        }
 	}
 
 	/**
