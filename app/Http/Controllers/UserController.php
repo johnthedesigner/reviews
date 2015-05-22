@@ -61,7 +61,7 @@ class UserController extends Controller {
 //		return view('users.show', array('user' => $user));
 
 		return View::make('users.show')
-			->with('users', $user);
+			->with('user', $user);
 	}
 
 	/**
