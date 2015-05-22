@@ -21,8 +21,6 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		$users = User::all()->toArray();
-		return view('users.index', array('users' => $users));
 	}
 
 	/**
@@ -53,8 +51,6 @@ class UserController extends Controller {
 	 */
 	public function show($id)
 	{
-		$user = User::find($id)->toArray();
-		return view('users.show', array('user' => $user));
 	}
 
 	/**
@@ -65,8 +61,6 @@ class UserController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$user = User::find($id)->toArray();
-		return view('users.edit', array('user' => $user));
 	}
 
 	/**
