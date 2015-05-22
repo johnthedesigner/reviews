@@ -6,60 +6,39 @@
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
 				<div class="panel-heading"><?php echo $user['name']; ?></div>
-
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
-
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
-							</div>
-						</div>
+				
+					<!-- if there are creation errors, they will show here -->
+					{{ HTML::ul($errors->all()) }}
+					
+					{{ Form::open(array('url' => 'users')) }}
+					
+					    <div class="form-group">
+					        {{ Form::label('name', 'Name') }}
+					        {{ Form::text('name', Input::old('name'), array('class' => 'form-control')) }}
+					    </div>
+					
+					    <div class="form-group">
+					        {{ Form::label('email', 'Email') }}
+					        {{ Form::email('email', Input::old('email'), array('class' => 'form-control')) }}
+					    </div>
+					
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
+					        {{ Form::label('password', 'Password') }}
+					        {{ Form::password('password', Input::old('password'), array('class' => 'form-control')) }}
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
+					        {{ Form::label('password_confirmation', 'Password Confirmation') }}
+					        {{ Form::password('password_confirmation', Input::old('password_confirmation'), array('class' => 'form-control') }}
 						</div>
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Confirm Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password_confirmation">
-							</div>
-						</div>
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									Register
-								</button>
-							</div>
-						</div>
-					</form>
+					    {{ Form::submit('Create User', array('class' => 'btn btn-primary')) }}
+					
+					{{ Form::close() }}
+
 				</div>
-
 			</div>
 		</div>
 	</div>
