@@ -8,23 +8,23 @@
 				<div class="panel-heading"><?php echo $user['name']; ?></div>
 
 					<!-- if there are creation errors, they will show here -->
-					{{ HTML::ul($errors->all()) }}
+					{!! HTML::ul($errors->all()) !!}
 					
-					{{ Form::model($user, array('route' => array('users.update', $user['id']), 'method' => 'PUT')) }}
+					{!! Form::model($user, array('route' => array('users.update', $user['id']), 'method' => 'PUT')) !!}
 					
 					    <div class="form-group">
-					        {{ Form::label('name', 'Name') }}
-					        {{ Form::text('name', Input::old('name'), array('class' => 'form-control')) }}
+					        {!! Form::label('name', 'Name') !!}
+					        {!! Form::text('name', Input::old('name'), array('class' => 'form-control')) !!}
 					    </div>
 					
 					    <div class="form-group">
-					        {{ Form::label('email', 'Email') }}
-					        {{ Form::email('email', Input::old('email'), array('class' => 'form-control')) }}
+					        {!! Form::label('email', 'Email') !!}
+					        {!! Form::email('email', Input::old('email'), array('class' => 'form-control')) !!}
 					    </div>
 					
-					    {{ Form::submit('Update User', array('class' => 'btn btn-primary')) }}
+					    {!! Form::submit('Update User', array('class' => 'btn btn-primary')) !!}
 					
-					{{ Form::close() }}
+					{!! Form::close() !!}
 
 				</div>
 			</div>
