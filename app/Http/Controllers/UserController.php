@@ -109,7 +109,7 @@ class UserController extends Controller {
             $user->save();
             
             // attach roles
-            $roles = Input::get('name');
+            $roles = Input::get('admin');
             $user->attachRoles($roles);
 
             // redirect
