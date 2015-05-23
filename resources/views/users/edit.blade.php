@@ -24,8 +24,12 @@
 						    </div>
 						
 						    <div class="form-group">
-						        {!! Form::label('role', 'Role') !!}
-						        {!! Form::checkbox('role', Input::old('role'), array('class' => 'form-control')) !!}
+							    $is_admin = false;
+								@if($user->hasRole('admin'))
+									$is_admin = true;
+								@endif
+						        {!! Form::label('admin', 'Admin', array('class' => 'label')); !!}
+						        {!! Form::checkbox('name', 'value', $is_admin); !!}
 						    </div>
 						
 						    {!! Form::submit('Update User', array('class' => 'btn btn-primary')) !!}
