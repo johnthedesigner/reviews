@@ -59,7 +59,7 @@ class UserController extends Controller {
 	public function show($id)
 	{
 		$user = User::find($id)->toArray();
-		$roles = User::find($id)->roles();
+//		return view('users.show', array('user' => $user));
 
 		return View::make('users.show')
 			->with('user', $user);
@@ -74,6 +74,7 @@ class UserController extends Controller {
 	public function edit($id)
 	{
 		$user = User::find($id)->toArray();
+//		return view('users.edit', array('user' => $user));
 
 		return View::make('users.edit')
 			->with('user', $user);
@@ -108,8 +109,8 @@ class UserController extends Controller {
             $user->save();
             
             // attach roles
-            $admin = Input::get('admin');
-            $user->attachRoles('admin');
+            $roles = array_get($input, 'role');
+            $user->attachRoles($roles);
 
             // redirect
             Session::flash('message', 'Successfully updated user!');
