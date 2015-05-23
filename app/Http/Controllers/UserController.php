@@ -61,7 +61,8 @@ class UserController extends Controller {
 		$user = User::find($id)->toArray();
 		$roles = User::find($id)->roles();
 
-		return View::make('users.show', array('user'=>$user,'roles'=>$roles));
+		return View::make('users.show')
+			->with('user', $user);
 	}
 
 	/**
@@ -74,7 +75,8 @@ class UserController extends Controller {
 	{
 		$user = User::find($id)->toArray();
 
-		return View::make('users.show', array('user'=>$user));
+		return View::make('users.edit')
+			->with('user', $user);
 	}
 
 	/**
