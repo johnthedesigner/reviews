@@ -108,8 +108,8 @@ class UserController extends Controller {
             $user->save();
             
             // attach roles
-            $roles = array_get($input, 'role');
-            $user->attachRoles($roles);
+            $admin = Input::get('admin');
+            $user->attachRoles('admin');
 
             // redirect
             Session::flash('message', 'Successfully updated user!');

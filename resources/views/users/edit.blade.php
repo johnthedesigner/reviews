@@ -25,7 +25,7 @@
 						
 						    <div class="form-group">
 						        {!! Form::label('admin', 'Admin', array('class' => 'label')); !!}
-						        {!! Form::checkbox('name', 'value', true); !!}
+						        {!! Form::checkbox('admin', Input::old('admin'), true); !!}
 						    </div>
 						
 						    {!! Form::submit('Update User', array('class' => 'btn btn-primary')) !!}
