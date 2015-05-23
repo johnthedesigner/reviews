@@ -62,7 +62,7 @@ class UserController extends Controller {
 		$roles = $user->roles();
 //		return view('users.show', array('user' => $user));
 
-		return View::make('users.show', array('user'=>$user,'roles'=>$roles))
+		return View::make('users.show', array('user'=>$user,'roles'=>$roles));
 	}
 
 	/**
