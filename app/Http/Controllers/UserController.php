@@ -7,6 +7,7 @@ use Validator, Input, Redirect, Session;
 use App\User;
 use View;
 use Zizaco\Entrust\EntrustRole;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class UserController extends Controller {
 
