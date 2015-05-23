@@ -23,7 +23,6 @@
 						        {!! Form::email('email', Input::old('email'), array('class' => 'form-control')) !!}
 						    </div>
 						
-						
 						    {!! Form::submit('Update User', array('class' => 'btn btn-primary')) !!}
 						
 						{!! Form::close() !!}
