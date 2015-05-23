@@ -60,7 +60,6 @@ class UserController extends Controller {
 	{
 		$user = User::find($id)->toArray();
 		$roles = $user->roles();
-//		return view('users.show', array('user' => $user));
 
 		return View::make('users.show', array('user'=>$user,'roles'=>$roles));
 	}
@@ -74,10 +73,9 @@ class UserController extends Controller {
 	public function edit($id)
 	{
 		$user = User::find($id)->toArray();
-//		return view('users.edit', array('user' => $user));
+		$roles = $user->roles();
 
-		return View::make('users.edit')
-			->with('user', $user);
+		return View::make('users.show', array('user'=>$user,'roles'=>$roles));
 	}
 
 	/**
