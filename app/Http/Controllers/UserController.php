@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Validator, Input, Redirect, Session;
 use App\User;
 use View;
-use Zizaco\Entrust\EntrustRole;
 
 class UserController extends Controller {
 
@@ -90,25 +89,6 @@ class UserController extends Controller {
 	public function update($id)
 	{
 
-		// ROLES AND PERMISSIONS
-		// Admin Role
-		$admin = new Role();
-		$admin->name         = 'admin';
-		$admin->display_name = 'Administrator'; // optional
-		$admin->description  = 'User is allowed to manage and edit other users'; // optional
-		$admin->save();
-	
-		// Admin Area Permission
-		$adminView = new Permission();
-		$adminView->name         = 'admin-view';
-		$adminView->display_name = 'Admin View'; // optional
-		// Allow a user to...
-		$adminView->description  = 'User can access Admin area'; // optional
-		$adminView->save();
-		
-		$admin->attachPermission($adminView);
-		// equivalent to $admin->perms()->sync(array($adminView->id));
-		
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
@@ -130,8 +110,8 @@ class UserController extends Controller {
             $user->save();
             
             // attach roles
-            $roles = Input::get('admin');
-            $user->attachRoles($admin);
+            //$roles = Input::get('admin');
+            //$user->attachRoles($admin);
 
             // redirect
             Session::flash('message', 'Successfully updated user!');

@@ -23,10 +23,6 @@
 						        {!! Form::email('email', Input::old('email'), array('class' => 'form-control')) !!}
 						    </div>
 						
-						    <div class="form-group">
-						        {!! Form::label('admin', 'Admin', array('class' => 'label')); !!}
-						        {!! Form::checkbox('admin', Input::old('admin'), true); !!}
-						    </div>
 						
 						    {!! Form::submit('Update User', array('class' => 'btn btn-primary')) !!}
 						
