@@ -73,10 +73,29 @@ class UserController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$user = User::find($id)->toArray();
-		$roles = User::find($id)->ability(array('admin'),array('admin-view'));
+		
+		// Admin Role
+		$admin = new Role();
+		$admin->name         = 'admin';
+		$admin->display_name = 'Administrator'; // optional
+		$admin->description  = 'User is allowed to manage and edit other users'; // optional
+		$admin->save();
+		
+		// Admin Area Permission
+		$adminView = new Permission();
+		$adminView->name         = 'admin-view';
+		$adminView->display_name = 'Admin View'; // optional
+		// Allow a user to...
+		$adminView->description  = 'User can access Admin area'; // optional
+		$adminView->save();
+		
+		$admin->attachPermission($adminView);
+		// equivalent to $admin->perms()->sync(array($adminView->id));
 
-		return View::make('users.edit',array('user'=>$user,'roles'=>$roles));
+		$user = User::find($id)->toArray();
+//		$roles = User::find($id)->ability(array('admin'),array('admin-view'));
+
+		return View::make('users.edit',array('user'=>$user,'roles'=>'roles test'));
 	}
 
 	/**
