@@ -93,7 +93,7 @@ class UserController extends Controller {
 		// equivalent to $admin->perms()->sync(array($adminView->id));
 
 		$user = User::find($id)->toArray();
-		$roles = User:find($id)->hasRole('admin');
+		$roles = User::find($id)->hasRole('admin');
 //		$roles = User::find($id)->ability(array('admin'),array('admin-view'));
 
 		return View::make('users.edit',array('user'=>$user,'roles'=>$roles));
