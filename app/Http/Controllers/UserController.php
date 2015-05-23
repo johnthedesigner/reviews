@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator, Input, Redirect, Session;
 use App\User;
 use View;
+use Zizaco\Entrust\EntrustRole;
 
 class UserController extends Controller {
 
