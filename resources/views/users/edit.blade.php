@@ -24,7 +24,6 @@
 						    </div>
 						
 						    <div class="form-group">
-							    <?php echo $user_obj->roles(); ?>
 								<!--@if($user->hasRole('admin'))
 									$is_admin = true;
 								@endif-->

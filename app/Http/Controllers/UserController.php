@@ -75,7 +75,7 @@ class UserController extends Controller {
 		$user_obj = User::find($id);
 		$user = $user_obj->toArray();
 
-		return View::make('users.show', array('user'=>$user,'user_obj'=>$user_obj));
+		return View::make('users.show', array('user'=>$user));
 	}
 
 	/**
