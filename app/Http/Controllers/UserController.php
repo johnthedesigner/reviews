@@ -107,6 +107,8 @@ class UserController extends Controller {
             $user->name       = Input::get('name');
             $user->email      = Input::get('email');
             $user->save();
+            
+            $user->roles()->attach(Input::get('role'));
 
             // redirect
             Session::flash('message', 'Successfully updated user!');
