@@ -74,7 +74,7 @@ class UserController extends Controller {
 	public function edit($id)
 	{
 		$user = User::find($id)->toArray();
-		$roles = Auth::user()->ability(array('admin', 'owner'));
+		$roles = User::find($id)->ability(array('admin', 'owner'));
 
 		return View::make('users.edit',array('user'=>$user,'roles'=>$roles));
 	}
