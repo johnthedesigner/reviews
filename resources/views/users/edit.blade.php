@@ -23,6 +23,11 @@
 						        {!! Form::email('email', Input::old('email'), array('class' => 'form-control')) !!}
 						    </div>
 						
+						    <div class="form-group">
+						        {!! Form::label('role', 'Role') !!}
+						        {!! Form::checkbox('role', Input::old('role'), array('class' => 'form-control')) !!}
+						    </div>
+						
 						    {!! Form::submit('Update User', array('class' => 'btn btn-primary')) !!}
 						
 						{!! Form::close() !!}
