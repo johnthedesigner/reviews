@@ -24,9 +24,6 @@
 						    </div>
 						
 						    <div class="form-group">
-								<!--@if($user->hasRole('admin'))
-									$is_admin = true;
-								@endif-->
 						        {!! Form::label('admin', 'Admin', array('class' => 'label')); !!}
 						        {!! Form::checkbox('name', 'value', $is_admin); !!}
 						    </div>
