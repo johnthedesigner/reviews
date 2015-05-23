@@ -73,7 +73,7 @@ class UserController extends Controller {
 	public function edit($id)
 	{
 		$user = User::find($id)->toArray();
-		$roles = $user->roles();
+		$roles = User::find($id)->roles();
 
 		return View::make('users.show', array('user'=>$user,'roles'=>$roles));
 	}
