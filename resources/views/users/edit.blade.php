@@ -24,10 +24,10 @@
 						    </div>
 						
 						    <div class="form-group">
-							    $is_admin = false;
-								@if($user->hasRole('admin'))
+							    <?php echo $roles; ?>
+								<!--@if($user->hasRole('admin'))
 									$is_admin = true;
-								@endif
+								@endif-->
 						        {!! Form::label('admin', 'Admin', array('class' => 'label')); !!}
 						        {!! Form::checkbox('name', 'value', $is_admin); !!}
 						    </div>
