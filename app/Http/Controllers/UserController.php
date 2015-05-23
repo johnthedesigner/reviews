@@ -72,8 +72,7 @@ class UserController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$user_obj = User::find($id);
-		$user = $user_obj->toArray();
+		$user = User::find($id)->toArray();
 
 		return View::make('users.show', array('user'=>$user));
 	}
