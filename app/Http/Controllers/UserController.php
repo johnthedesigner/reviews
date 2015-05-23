@@ -59,10 +59,12 @@ class UserController extends Controller {
 	public function show($id)
 	{
 		$user = User::find($id)->toArray();
+		$roles = $user->roles();
 //		return view('users.show', array('user' => $user));
 
 		return View::make('users.show')
-			->with('user', $user);
+			->with('user', $user)
+			->with('roles',$roles);
 	}
 
 	/**
