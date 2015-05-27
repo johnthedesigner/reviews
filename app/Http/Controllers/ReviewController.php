@@ -2,8 +2,11 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use Validator, Input, Redirect, Session;
+use App\User;
+use View;
+use App\Models\Review;
 
 class ReviewController extends Controller {
 
@@ -14,7 +17,8 @@ class ReviewController extends Controller {
 	 */
 	public function index()
 	{
-		return view('review');
+		$reviews = Review::all()->toArray();
+		return view('reviews.index', array('reviews' => $reviews));
 	}
 
 	/**
@@ -24,7 +28,7 @@ class ReviewController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('reviews.create');
 	}
 
 	/**
@@ -34,7 +38,13 @@ class ReviewController extends Controller {
 	 */
 	public function store()
 	{
-		//
+	    $review = new Review([
+	        'title' => Input::get('title'),
+	        'content' => Input::get('content'),
+	        'rating' => Input::get('rating')
+	    ]);
+	    $newReview=Review::create($review->toArray());
+	    return redirect('reviews')->withMessage('Review Saved Successfully !!!');
 	}
 
 	/**
@@ -45,7 +55,8 @@ class ReviewController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$review = Review::find($id)->toArray();
+		return view('reviews.show', array('review' => $review));
 	}
 
 	/**
@@ -56,7 +67,8 @@ class ReviewController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$review = Review::find($id)->toArray();
+		return view('reviews.edit', array('review' => $review));
 	}
 
 	/**
@@ -67,7 +79,31 @@ class ReviewController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+
+        // validate
+        // read more on validation at http://laravel.com/docs/validation
+        $rules = array(
+            'title'       => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return Redirect::to('reviews/' . $id . '/edit')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            // store
+            $review = Review::find($id);
+            $review->name       = Input::get('name');
+            $review->content    = Input::get('content');
+            $review->rating     = Input::get('rating');
+            $review->save();
+            
+            // redirect
+            Session::flash('message', 'Successfully updated review!');
+            return Redirect::to('reviews/' . $id);
+        }
 	}
 
 	/**
