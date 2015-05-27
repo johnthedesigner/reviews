@@ -1,12 +1,30 @@
 <?php
 
-// Heroku Dev DB Info
-$url = parse_url(getenv("DATABASE_URL"));
+// Dev DB Vars
+$url = '';
+$dev_host = '';
+$dev_username = '';
+$dev_password = '';
+$dev_database = '';
 
-$dev_host = $url["host"];
-$dev_username = $url["user"];
-$dev_password = $url["pass"];
-$dev_database = substr($url["path"], 1);
+
+// Default DB connection is SQLite, overridden for various environments
+$default_db = 'sqlite';
+if ($app->environment('staging'))
+{
+	// Heroku Dev DB Info
+	$url = parse_url(getenv("DATABASE_URL"));
+	$dev_host = $url["host"];
+	$dev_username = $url["user"];
+	$dev_password = $url["pass"];
+	$dev_database = substr($url["path"], 1);
+
+    $default_db = 'heroku_stage';
+}
+else if ($app->environment('local'))
+{
+    $default_db = 'homestead';
+}
 
 return [
 
@@ -34,8 +52,7 @@ return [
 	|
 	*/
 
-	'default' => 'pgsql',
-
+	'default' => $default_db,
 	/*
 	|--------------------------------------------------------------------------
 	| Database Connections
@@ -72,23 +89,12 @@ return [
 			'strict'    => false,
 		],
 
-//		'pgsql' => [
-//			'driver'   => 'pgsql',
-//			'host'     => env('DB_HOST', 'localhost'),
-//			'database' => env('DB_DATABASE', 'forge'),
-//			'username' => env('DB_USERNAME', 'forge'),
-//			'password' => env('DB_PASSWORD', ''),
-//			'charset'  => 'utf8',
-//			'prefix'   => '',
-//			'schema'   => 'public',
-//		],
-
 		'pgsql' => [
 			'driver'   => 'pgsql',
-			'host'     => $dev_host,
-			'database' => $dev_database,
-			'username' => $dev_username,
-			'password' => $dev_password,
+			'host'     => env('DB_HOST', 'localhost'),
+			'database' => env('DB_DATABASE', 'forge'),
+			'username' => env('DB_USERNAME', 'forge'),
+			'password' => env('DB_PASSWORD', ''),
 			'charset'  => 'utf8',
 			'prefix'   => '',
 			'schema'   => 'public',
@@ -101,6 +107,28 @@ return [
 			'username' => env('DB_USERNAME', 'forge'),
 			'password' => env('DB_PASSWORD', ''),
 			'prefix'   => '',
+		],
+
+		'heroku_stage' => [
+			'driver'   => 'pgsql',
+			'host'     => $dev_host,
+			'database' => $dev_database,
+			'username' => $dev_username,
+			'password' => $dev_password,
+			'charset'  => 'utf8',
+			'prefix'   => '',
+			'schema'   => 'public',
+		],
+
+		'homestead' => [
+			'driver'   => 'pgsql',
+			'host'     => '127.0.0.1',
+			'database' => 'homestead',
+			'username' => 'homestead',
+			'password' => 'secret',
+			'charset'  => 'utf8',
+			'prefix'   => '',
+			'schema'   => 'public',
 		],
 
 	],
