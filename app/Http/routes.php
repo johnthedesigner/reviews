@@ -15,15 +15,16 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::resource('admin', 'AdminController');
-
 Route::resource('reviews', 'ReviewController');
 
-Route::resource('users', 'UserController');
-
+// Auth controllers (from Laravel)
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
 
-Entrust::routeNeedsRole('admin', 'admin', Redirect::to('home'));
+// Users section
+Route::resource('users', 'UserController');
+
+// Block off users section to super_admin
+Entrust::routeNeedsRole('admin', 'super_admin', Redirect::to('home'));
