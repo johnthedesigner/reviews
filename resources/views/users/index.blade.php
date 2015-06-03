@@ -13,12 +13,15 @@
 					<table class="table">
 						<thead>
 							<tr>
-						<?php
-							echo '<th></th>';
-							foreach ( $users[0] as $key => $value ) {
-							echo '<th>'.$key.'</th>';
-							};
-						?>
+								<?php
+									echo '<th></th>';
+									echo '<th>ID</th>';
+									echo '<th>Name</th>';
+									echo '<th>Email</th>';
+									echo '<th>Created</th>';
+									echo '<th>Updated</th>';
+									echo '<th>Reviews</th>';
+								?>
 							</tr>
 						</thead>
 						<tbody>
@@ -27,9 +30,12 @@
 								echo '<tr>';
 								$user_link = action('UserController@edit', array('id' => $user['id']));
 								echo '<td><a href="'.$user_link.'">Edit</a></td>';	
-								foreach ( $user as $value ) {
-									echo '<td>'.$value.'</td>';
-								}
+								echo '<td>'.$user['id'].'</td>';	
+								echo '<td>'.$user['name'].'</td>';	
+								echo '<td>'.$user['email'].'</td>';	
+								echo '<td>'.$user['created_at'].'</td>';	
+								echo '<td>'.$user['updated_at'].'</td>';	
+								echo '<td>'.count($user['reviews']).'</td>';	
 								echo '</tr>';
 							}
 						?>

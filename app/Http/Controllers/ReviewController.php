@@ -3,10 +3,10 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Validator, Input, Redirect, Session;
-use App\User;
-use View;
+use Validator, Input, Redirect, Session, Auth, View;
 use App\Models\Review;
+//use App\Models\Rating;
+use App\User;
 
 class ReviewController extends Controller {
 
@@ -17,7 +17,8 @@ class ReviewController extends Controller {
 	 */
 	public function index()
 	{
-		$reviews = Review::all()->toArray();
+		//$reviews = Review::with('owner','rating')->get();
+		$reviews = Review::with('owner')->get();
 		return view('reviews.index', array('reviews' => $reviews));
 	}
 
@@ -39,11 +40,13 @@ class ReviewController extends Controller {
 	public function store()
 	{
 	    $review = new Review([
-	        'title' => Input::get('title'),
-	        'content' => Input::get('content'),
-	        'rating' => Input::get('rating')
+	        'title'    => Input::get('title'),
+	        'content'  => Input::get('content'),
+		    'rating'   => Input::get('rating'),
+            'user_id'  => Auth::user()->id
 	    ]);
-	    $newReview=Review::create($review->toArray());
+	    $newReview=Review::create( $review->toArray() );
+
 	    return redirect('reviews')->withMessage('Review Saved Successfully !!!');
 	}
 
@@ -79,7 +82,6 @@ class ReviewController extends Controller {
 	 */
 	public function update($id)
 	{
-
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
@@ -95,10 +97,12 @@ class ReviewController extends Controller {
         } else {
             // store
             $review = Review::find($id);
-            $review->name       = Input::get('name');
-            $review->content    = Input::get('content');
-            $review->rating     = Input::get('rating');
-            $review->save();
+            $review->title          = Input::get('title');
+            $review->content        = Input::get('content');
+ 		    $review->rating			= Input::get('rating');
+			$review->user_id		= Auth::user()->id;
+
+            $review->push($review);
             
             // redirect
             Session::flash('message', 'Successfully updated review!');
@@ -114,7 +118,11 @@ class ReviewController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		// Get user and delete
+		$review = Review::find($id);
+		$review->delete();
+		
+		return redirect('reviews')->withMessage('Review Deleted Successfully !!!');
 	}
 
 }

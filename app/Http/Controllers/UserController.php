@@ -25,11 +25,8 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		$users = User::all()->toArray();
-//		return view('users.index', array('users' => $users));
-
-		return View::make('users.index')
-			->with('users', $users);
+		$users = User::with('reviews')->get();
+		return view('users.index', array('users' => $users));
 	}
 
 	/**
@@ -61,10 +58,7 @@ class UserController extends Controller {
 	public function show($id)
 	{
 		$user = User::find($id)->toArray();
-//		return view('users.show', array('user' => $user));
-
-		return View::make('users.show')
-			->with('user', $user);
+		return view('users.show', array('user' => $user));
 	}
 
 	/**
@@ -75,13 +69,9 @@ class UserController extends Controller {
 	 */
 	public function edit($id)
 	{
-		
 		$user = User::find($id)->toArray();
-//		$roles = User::find($id)->hasRole('admin');
-//		$roles = User::find($id)->ability(array('admin'),array('admin-view'));
-
-		return View::make('users.edit',array('user'=>$user));
-//		return View::make('users.edit',array('user'=>$user,'roles'=>$roles));
+		$reviews = User::find($id)->reviews;
+		return View::make('users.edit',array('user'=>$user, 'reviews'=>$reviews));
 	}
 
 	/**
@@ -113,10 +103,6 @@ class UserController extends Controller {
             $user->email      = Input::get('email');
             $user->save();
             
-            // attach roles
-            //$roles = Input::get('admin');
-            //$user->attachRoles($admin);
-
             // redirect
             Session::flash('message', 'Successfully updated user!');
             return Redirect::to('users');

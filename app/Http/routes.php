@@ -16,6 +16,7 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 
 Route::resource('reviews', 'ReviewController');
+Route::resource('ratings', 'RatingController');
 
 // Auth controllers (from Laravel)
 Route::controllers([

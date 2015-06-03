@@ -4,7 +4,15 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
+
+			<!-- Create Review -->
+			{!! Form::open(['method'=>'get','action'=>['ReviewController@create']]) !!}
+			 <button type="submit">New Review</button>                      
+			{!! Form::close() !!}
+			<br>
+
 			<div class="panel panel-default">
+
 				<div class="panel-heading">List Reviews</div>
 
 				<div class="panel-body">
@@ -13,26 +21,32 @@
 					<table class="table">
 						<thead>
 							<tr>
-						<?php
-							echo '<th></th>';
-							echo '<th>Title</th>';
-							echo '<th>Rating</th>';
-							echo '<th>Content</th>';
-						?>
+								<th>Title</th>
+								<th>Rating</th>
+								<th>Content</th>
+								<th>Owner</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-						<?php
-							foreach ( $reviews as $review ) {
-								echo '<tr>';
-								$review_link = action('ReviewController@edit', array('id' => $review['id']));
-								echo '<td><a href="'.$review_link.'">Edit</a></td>';	
-								echo '<td>'.$review['title'].'</td>';	
-								echo '<td>'.$review['rating'].'</td>';	
-								echo '<td>'.$review['content'].'</td>';	
-								echo '</tr>';
-							}
-						?>
+							@foreach ( $reviews as $review )
+							<tr>
+								<td>{!! $review->title !!}</td>
+								<td>{!! $review->rating !!}</td>
+								<td>{!! $review->content !!}</td>
+								<td>{!! $review->owner['name'] !!}</td>
+								<td>
+									<!-- Edit Review -->
+									{!! Form::open(['method'=>'get','action'=>['ReviewController@edit',$review->id]]) !!}
+									 <button type="submit">Edit</button>                      
+									{!! Form::close() !!}									
+									<!-- Delete Review -->
+									{!! Form::open(['method'=>'delete','action'=>['ReviewController@destroy',$review->id]]) !!}
+									 <button type="submit">Delete</button>                      
+									{!! Form::close() !!}									
+								</td>
+							</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>
