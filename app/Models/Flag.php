@@ -2,13 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rating extends Model {
+class Flag extends Model {
 
-	use \Illuminate\Database\Eloquent\SoftDeletes;
-
-    protected $table = 'ratings';
-    protected $dates = ['deleted_at'];
-    protected $fillable = ['rating'];
+    protected $table = 'flags';
+    protected $fillable = ['type'];
     
 	public function review(){
 		

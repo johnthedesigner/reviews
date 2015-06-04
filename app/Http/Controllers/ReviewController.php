@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator, Input, Redirect, Session, Auth, View;
 use App\Models\Review;
-//use App\Models\Rating;
 use App\User;
 
 class ReviewController extends Controller {
@@ -17,8 +16,7 @@ class ReviewController extends Controller {
 	 */
 	public function index()
 	{
-		//$reviews = Review::with('owner','rating')->get();
-		$reviews = Review::with('owner')->get();
+		$reviews = Review::with('user')->get();
 		return view('reviews.index', array('reviews' => $reviews));
 	}
 
@@ -42,7 +40,6 @@ class ReviewController extends Controller {
 	    $review = new Review([
 	        'title'    => Input::get('title'),
 	        'content'  => Input::get('content'),
-		    'rating'   => Input::get('rating'),
             'user_id'  => Auth::user()->id
 	    ]);
 	    $newReview=Review::create( $review->toArray() );
@@ -58,7 +55,7 @@ class ReviewController extends Controller {
 	 */
 	public function show($id)
 	{
-		$review = Review::find($id)->toArray();
+		$review = Review::find($id);
 		return view('reviews.show', array('review' => $review));
 	}
 
@@ -99,7 +96,6 @@ class ReviewController extends Controller {
             $review = Review::find($id);
             $review->title          = Input::get('title');
             $review->content        = Input::get('content');
- 		    $review->rating			= Input::get('rating');
 			$review->user_id		= Auth::user()->id;
 
             $review->push($review);

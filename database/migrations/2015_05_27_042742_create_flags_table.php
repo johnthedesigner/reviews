@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSoftDeletesToReviewsTable extends Migration {
+class CreateFlagsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,11 @@ class AddSoftDeletesToReviewsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('reviews', function(Blueprint $table)
+		Schema::create('flags', function(Blueprint $table)
 		{
-			// Add Soft Deletes
-			$table->softDeletes();
+			$table->increments('id');
+			$table->timestamps();
+			$table->enum('types', ['abusive', 'offensive', 'spam', 'illegal', 'other'])->nullable();
 		});
 	}
 
@@ -26,10 +27,7 @@ class AddSoftDeletesToReviewsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('reviews', function(Blueprint $table)
-		{
-			$table->dropSoftDeletes();
-		});
+		Schema::drop('flags');
 	}
 
 }

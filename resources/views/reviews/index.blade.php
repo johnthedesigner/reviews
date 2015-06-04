@@ -22,7 +22,6 @@
 						<thead>
 							<tr>
 								<th>Title</th>
-								<th>Rating</th>
 								<th>Content</th>
 								<th>Owner</th>
 								<th></th>
@@ -32,9 +31,8 @@
 							@foreach ( $reviews as $review )
 							<tr>
 								<td>{!! $review->title !!}</td>
-								<td>{!! $review->rating !!}</td>
 								<td>{!! $review->content !!}</td>
-								<td>{!! $review->owner['name'] !!}</td>
+								<td>{!! $review->user['name'] !!}</td>
 								<td>
 									<!-- Edit Review -->
 									{!! Form::open(['method'=>'get','action'=>['ReviewController@edit',$review->id]]) !!}

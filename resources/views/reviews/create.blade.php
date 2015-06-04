@@ -20,11 +20,6 @@
 					    </div>
 					
 					    <div class="form-group">
-					        {!! Form::label('rating', 'Rating') !!}
-					        {!! Form::select('rating', array(1 => '1',2 => '2',3 => '3',4 => '4',5 => '5')); !!}
-					    </div>
-					
-					    <div class="form-group">
 					        {!! Form::label('content', 'Content') !!}
 					        {!! Form::textarea('content', Input::old('content'), array('class' => 'form-control')) !!}
 					    </div>

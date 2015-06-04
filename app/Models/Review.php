@@ -8,18 +8,24 @@ class Review extends Model {
 
     protected $table = 'reviews';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content','user_id'];
     
-	public function owner(){
+	public function rating(){
 		
-		return $this->belongsTo('App\User','user_id','id');
+		return $this->hasOne('App\Models\Rating');
 
 	}
 	
-//	public function rating(){
-//		
-//		return $this->hasOne('App\Models\Rating','review_id','id');
-//
-//	}
+	public function thing(){
+		
+		return $this->belongsTo('App\Models\Thing');
+
+	}
+	
+	public function user(){
+		
+		return $this->belongsTo('App\User');
+
+	}
 	
 }

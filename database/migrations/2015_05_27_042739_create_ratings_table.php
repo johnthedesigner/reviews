@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReviewsTable extends Migration {
+class CreateRatingsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,13 @@ class CreateReviewsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('reviews', function(Blueprint $table)
+		Schema::create('ratings', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->timestamps();
-			$table->softDeletes();
 			$table->timestamp('published_at')->nullable();
-			$table->string('title');
-			$table->longText('content');
+			$table->softDeletes();
+			$table->integer('rating');
 		});
 	}
 
@@ -30,7 +29,7 @@ class CreateReviewsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('reviews');
+		Schema::drop('ratings');
 	}
 
 }
