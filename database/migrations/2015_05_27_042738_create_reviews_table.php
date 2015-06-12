@@ -18,8 +18,8 @@ class CreateReviewsTable extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 			$table->timestamp('published_at')->nullable();
-			$table->string('title');
-			$table->longText('content');
+			$table->string('title')->nullable();
+			$table->longText('content')->nullable();
 		});
 	}
 

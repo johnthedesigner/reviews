@@ -8,8 +8,14 @@ class Review extends Model {
 
     protected $table = 'reviews';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['title', 'content','user_id'];
+    protected $fillable = ['title', 'content','user_id','thing_id'];
     
+	public function category_id(){
+		
+		return $this->hasOne('App\Models\Category');
+
+	}
+	
 	public function rating(){
 		
 		return $this->hasOne('App\Models\Rating');

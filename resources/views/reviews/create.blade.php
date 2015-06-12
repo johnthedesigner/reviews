@@ -15,8 +15,18 @@
 					{!! Form::open(array('url' => 'reviews')) !!}
 					
 					    <div class="form-group">
+					        {!! Form::label('thing_id', 'Thing') !!}
+					        {!! Form::select('thing_id', $things, Input::get('thing_id')) !!}
+					    </div>
+					
+					    <div class="form-group">
 					        {!! Form::label('title', 'Title') !!}
 					        {!! Form::text('title', Input::old('title'), array('class' => 'form-control')) !!}
+					    </div>
+					
+					    <div class="form-group">
+					        {!! Form::label('rating', 'Rating') !!}
+					        {!! Form::select('rating',array('1'=>1,'2'=>2,'3'=>3,'4'=>4,'5'=>5), Input::old('rating'), array('class' => 'form-control')) !!}
 					    </div>
 					
 					    <div class="form-group">

@@ -8,7 +8,7 @@ class Rating extends Model {
 
     protected $table = 'ratings';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['rating'];
+    protected $fillable = ['rating','user_id','review_id'];
     
 	public function review(){
 		

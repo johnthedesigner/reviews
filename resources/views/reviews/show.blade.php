@@ -14,16 +14,20 @@
 						<thead>
 							<tr>
 								<th>Title</th>
+								<th>Rating</th>
 								<th>Content</th>
 								<th>Owner</th>
+								<th>Thing</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>{{ $review->title }}</td>
+								<td>{{ $review->rating['rating'] }}</td>
 								<td>{{ $review->content }}</td>
 								<td>{{ $review->user['name'] }}</td>
+								<td>{{ $review->thing['title'] }}</td>
 								<td>
 									<!-- Edit Review -->
 									{!! Form::open(['method'=>'get','action'=>['ReviewController@edit',$review->id]]) !!}

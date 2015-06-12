@@ -18,6 +18,7 @@ class AdminSeeder extends Seeder {
 	 */
 	public function run()
 	{
+				
 		// Create Super Admin Role
 		Role::firstOrCreate([
 			'name' => 'super_admin',
