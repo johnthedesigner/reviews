@@ -13,10 +13,32 @@
 
 Route::get('/', 'WelcomeController@index');
 
+// Homepage Controller
 Route::get('home', 'HomeController@index');
 
+// User-Facing Resource Controllers
+Route::resource('things', 'ThingController');
 Route::resource('reviews', 'ReviewController');
+Route::get('categories', 'CategoryController@index');
 Route::resource('ratings', 'RatingController');
+Route::resource('flag', 'FlagController');
+
+// API Resource Controllers
+Route::group(array('prefix' => 'api/v1', 'namespace' => 'api\v1'), function()
+{
+	Route::resource('things', 'ThingApiController');
+	Route::resource('reviews', 'ReviewApiController');
+	Route::get('categories', 'CategoryApiController@index');
+	Route::resource('ratings', 'RatingApiController');
+	Route::resource('flag', 'FlagApiController');
+});
+
+// Admin-Facing Resource Controllers
+Route::group(array('prefix' => 'admin'), function()
+{
+	Route::resource('users', 'UserController');
+	Route::resource('categories', 'CategoryController');
+});
 
 // Auth controllers (from Laravel)
 Route::controllers([
@@ -24,8 +46,5 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-// Users section
-Route::resource('users', 'UserController');
-
 // Block off users section to super_admin
-Entrust::routeNeedsRole('admin', 'super_admin', Redirect::to('home'));
+Entrust::routeNeedsRole('admin*', 'super_admin', Redirect::to('home'));

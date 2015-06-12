@@ -15,9 +15,11 @@ class CreateReviewsTable extends Migration {
 		Schema::create('reviews', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title');
-			$table->text('content');
 			$table->timestamps();
+			$table->softDeletes();
+			$table->timestamp('published_at')->nullable();
+			$table->string('title')->nullable();
+			$table->longText('content')->nullable();
 		});
 	}
 

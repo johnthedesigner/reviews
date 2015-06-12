@@ -24,6 +24,7 @@
 								<th>Title</th>
 								<th>Rating</th>
 								<th>Content</th>
+								<th>Thing</th>
 								<th>Owner</th>
 								<th></th>
 							</tr>
@@ -32,18 +33,20 @@
 							@foreach ( $reviews as $review )
 							<tr>
 								<td>{!! $review->title !!}</td>
-								<td>{!! $review->rating !!}</td>
+								<td>{!! $review->rating['rating'] !!}</td>
 								<td>{!! $review->content !!}</td>
-								<td>{!! $review->owner['name'] !!}</td>
+								<td>{!! $review->thing['title'] !!}</td>
+								<td>{!! $review->user['name'] !!}</td>
 								<td>
+									<!-- View Review -->
+									<a href="{{ action('ReviewController@show', $review->id) }}"> View </a>|
 									<!-- Edit Review -->
-									{!! Form::open(['method'=>'get','action'=>['ReviewController@edit',$review->id]]) !!}
-									 <button type="submit">Edit</button>                      
-									{!! Form::close() !!}									
+									<a href="{{ action('ReviewController@edit', $review->id) }}"> Edit </a>|
 									<!-- Delete Review -->
 									{!! Form::open(['method'=>'delete','action'=>['ReviewController@destroy',$review->id]]) !!}
 									 <button type="submit">Delete</button>                      
 									{!! Form::close() !!}									
+
 								</td>
 							</tr>
 							@endforeach

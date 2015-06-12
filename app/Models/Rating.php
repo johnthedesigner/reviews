@@ -4,15 +4,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rating extends Model {
 
-	protected $table = 'ratings';
+	use \Illuminate\Database\Eloquent\SoftDeletes;
 
-    protected $fillable = ['rating', 'review_id'];
+    protected $table = 'ratings';
+    protected $dates = ['deleted_at'];
+    protected $fillable = ['rating','user_id','review_id'];
+    
+	public function review(){
+		
+		return $this->belongsTo('App\Models\Review');
 
-	// Get Reviews for this User
-//	public function reviews(){
-//		
-//		return $this->belongsTo('App\Models\Review','review_id','id');
-//
-//	}
+	}
+	
+	public function user(){
+		
+		return $this->belongsTo('App\User');
 
+	}
+	
 }
