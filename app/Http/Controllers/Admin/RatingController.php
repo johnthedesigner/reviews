@@ -4,12 +4,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator, Input, Redirect, Session, Auth, View;
-use App\Models\Review;
 use App\Models\Rating;
-use App\Models\Thing;
+use App\Models\Review;
 use App\User;
 
-class ReviewController extends Controller {
+class RatingController extends Controller {
 
 	/*
 	* Require authenticated user
@@ -26,8 +25,8 @@ class ReviewController extends Controller {
 	 */
 	public function index()
 	{
-		$reviews = Review::with('user')->get();
-		return view('admin.reviews.index', array('reviews' => $reviews));
+		$ratings = Review::with('review','user')->get();
+		return view('ratings.index', array('ratings' => $ratings));
 	}
 
 	/**
@@ -37,12 +36,24 @@ class ReviewController extends Controller {
 	 */
 	public function create()
 	{
-		$things = Thing::all()->toArray();
-		$thingList = [];
-		foreach($things as $thing){
-			$thingList[$thing['id']] = $thing['title'];
-		}
-		return view('admin.reviews.create', array('things' => $thingList) );
+	    // First Create a draft Review
+	    $review = new Review([
+            'title' => Input::get('title'),
+            'content' => Input::get('content'),
+            'thing_id' => Input::get('thing_id'),
+            'user_id'  => Auth::user()->id
+	    ]);
+	    $review = Review::create( $review->toArray() );
+
+	    // First Create a draft Review
+	    $rating = new Rating([
+            'rating' => Input::get('rating'),
+            'review_id' => Input::get('review_id'),
+            'user_id'  => Auth::user()->id
+	    ]);
+	    $newRating = Rating::create( $rating->toArray() );
+
+		return view('reviews.edit', array('id' => $rating->id) );
 	}
 
 	/**
@@ -52,23 +63,15 @@ class ReviewController extends Controller {
 	 */
 	public function store()
 	{
-	    // First Save a Review
 	    $review = new Review([
 	        'title'    => Input::get('title'),
 	        'content'  => Input::get('content'),
             'thing_id' => Input::get('thing_id'),
             'user_id'  => Auth::user()->id
 	    ]);
-	    $newReview=Review::create($review->toArray());
-		
-		// Then save rating
-	    $rating = [
-	        'rating'    => Input::get('rating'),
-            'user_id'  => Auth::user()->id
-	    ];
-		$review->find($newReview->id)->rating()->save(new Rating($rating));
+	    $newReview=Review::create( $review->toArray() );
 
-	    return redirect('admin/reviews/' . $newReview->id)->withMessage('Review Saved Successfully !!!');
+	    return redirect('reviews')->withMessage('Review Saved Successfully !!!');
 	}
 
 	/**
@@ -79,8 +82,8 @@ class ReviewController extends Controller {
 	 */
 	public function show($id)
 	{
-		$review = Review::with(array('user','thing','rating'))->get()->find($id);
-		return view('admin.reviews.show', array('review' => $review));
+		$review = Review::find($id);
+		return view('reviews.show', array('review' => $review));
 	}
 
 	/**
@@ -91,9 +94,8 @@ class ReviewController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$review = Review::find($id);
-		$rating = $review->rating['rating'];
-		return view('admin.reviews.edit', array('review' => $review, 'rating' => $rating));
+		$review = Review::find($id)->toArray();
+		return view('reviews.edit', array('review' => $review));
 	}
 
 	/**
@@ -107,9 +109,7 @@ class ReviewController extends Controller {
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
-            'title'		=> 'required',
-            'content'	=> 'required',
-            'rating'	=> 'required'
+            'title'       => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
 
@@ -119,25 +119,18 @@ class ReviewController extends Controller {
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
-            // Update Review
+            // store
             $review = Review::find($id);
-            $review->title				= Input::get('title');
-            $review->content			= Input::get('content');
-            $review->thing_id			= Input::get('thing_id');
-			$review->user_id			= Auth::user()->id;
+            $review->title          = Input::get('title');
+            $review->content        = Input::get('content');
+            $review->thing_id       = Input::get('thing_id');
+			$review->user_id		= Auth::user()->id;
 
             $review->push($review);
             
-			// Then Update Rating
-		    $rating = [
-		        'rating'    => Input::get('rating'),
-	            'user_id'  => Auth::user()->id
-		    ];
-			$review->find($id)->rating()->update($rating);
-
             // redirect
             Session::flash('message', 'Successfully updated review!');
-            return Redirect::to('admin/reviews/' . $id);
+            return Redirect::to('reviews/' . $id);
         }
 	}
 
@@ -153,7 +146,16 @@ class ReviewController extends Controller {
 		$review = Review::find($id);
 		$review->delete();
 		
-		return redirect('admin/reviews')->withMessage('Review Deleted Successfully !!!');
+		return redirect('reviews')->withMessage('Review Deleted Successfully !!!');
+	}
+
+	/**
+	 * Store a draft Review and redirect to edit view.
+	 */
+	public function draft($thing_id)
+	{
+	    $newReview=Review::create( $review->toArray() );
+        return Redirect::to('reviews/' . $newReview->id);
 	}
 
 }

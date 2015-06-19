@@ -16,7 +16,7 @@ class CreateFlagsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->timestamps();
-			$table->enum('types', ['abusive', 'offensive', 'spam', 'illegal', 'other'])->nullable();
+			$table->enum('type', ['abusive', 'offensive', 'spam', 'illegal', 'other'])->nullable();
 		});
 	}
 

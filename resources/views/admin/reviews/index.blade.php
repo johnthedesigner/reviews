@@ -27,6 +27,7 @@
 								<th>Thing</th>
 								<th>Flags</th>
 								<th>Votes</th>
+								<th>Comments</th>
 								<th>Owner</th>
 								<th></th>
 							</tr>
@@ -40,6 +41,7 @@
 								<td>{!! $review->thing['title'] !!}</td>
 								<td>{!! $review->flags->count() !!}</td>
 								<td>{!! $review->votes->count() !!}</td>
+								<td>{!! $review->comments()->count() !!}</td>
 								<td>{!! $review->user['name'] !!}</td>
 								<td>
 									<!-- View Review -->
@@ -51,13 +53,13 @@
 									<button type="submit">Delete</button>                      
 									{!! Form::close() !!}	
 									<!-- Flag Review -->								
-									{!! Form::open(['method'=>'store','action'=>['FlagController@store']]) !!}
+									{!! Form::open(['method'=>'store','action'=>['Admin\FlagController@store']]) !!}
 									<input type="hidden" name="review_id" value="{{ $review->id }}">
 									<input type="hidden" name="type" value="other">
 									<button type="submit">Flag</button>                      
 									{!! Form::close() !!}									
 									<!-- Vote for Review -->								
-									{!! Form::open(['method'=>'store','action'=>['VoteController@store']]) !!}
+									{!! Form::open(['method'=>'store','action'=>['Admin\VoteController@store']]) !!}
 									<input type="hidden" name="review_id" value="{{ $review->id }}">
 									<button type="submit">Vote</button>                      
 									{!! Form::close() !!}									

@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder {
 		$this->call('CategorySeeder');
 		$this->call('ThingSeeder');
 		$this->call('ReviewSeeder');
+		$this->call('CommentSeeder');
+		$this->call('FlagSeeder');
+		$this->call('SubscriptionSeeder');
+		$this->call('VoteSeeder');
 
 	}
 

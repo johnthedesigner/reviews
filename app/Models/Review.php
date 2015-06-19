@@ -28,6 +28,24 @@ class Review extends Model {
 
 	}
 	
+	public function flags(){
+		
+		return $this->hasMany('App\Models\Flag');
+
+	}
+	
+	public function votes(){
+		
+		return $this->hasMany('App\Models\Vote');
+
+	}
+	
+	public function comments(){
+		
+		return $this->hasMany('App\Models\Comment');
+
+	}
+	
 	public function user(){
 		
 		return $this->belongsTo('App\User');

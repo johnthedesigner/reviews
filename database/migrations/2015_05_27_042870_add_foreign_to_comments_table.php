@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddForeignToFlagsTable extends Migration {
+class AddForeignToCommentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class AddForeignToFlagsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('flags', function($table)
+		Schema::table('comments', function($table)
 		{
 			$table->integer('review_id')->unsigned()->nullable();
 			$table->foreign('review_id')->references('id')->on('reviews')->onDelete('cascade');
@@ -28,7 +28,7 @@ class AddForeignToFlagsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('flags', function($table)
+		Schema::table('comments', function($table)
 		{
 		    $table->dropForeign(['review_id', 'user_id']);
 		    $table->dropColumn(['review_id', 'user_id']);

@@ -44,8 +44,6 @@ class FlagController extends Controller {
 	public function store()
 	{
 	    $flag = new Flag([
-	        'type'    => Input::get('type'),
-	        'content'  => Input::get('content'),
             'review_id' => Input::get('review_id'),
             'thing_id' => Input::get('thing_id'),
             'comment_id' => Input::get('comment_id'),

@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Flag extends Model {
+class Vote extends Model {
 
-    protected $table = 'flags';
-    protected $fillable = ['type','review_id','thing_id','user_id'];
+    protected $table = 'votes';
+    protected $fillable = ['review_id','thing_id','category_id','user_id'];
     
 	public function review(){
 		
@@ -16,6 +16,12 @@ class Flag extends Model {
 	public function thing(){
 		
 		return $this->belongsTo('App\Models\Thing');
+
+	}
+	
+	public function category(){
+		
+		return $this->belongsTo('App\Models\Category');
 
 	}
 	

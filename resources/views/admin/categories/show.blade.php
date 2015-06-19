@@ -16,6 +16,7 @@
 								<th>Title</th>
 								<th>Content</th>
 								<th>Owner</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -23,6 +24,12 @@
 								<td>{{ $category->title }}</td>
 								<td>{{ $category->description }}</td>
 								<td>{{ $category->user['name'] }}</td>
+								<td>
+									<!-- Delete Category -->
+									{!! Form::open(['method'=>'delete','action'=>['CategoryController@destroy',$category->id]]) !!}
+									 <button type="submit">Delete</button>                      
+									{!! Form::close() !!}									
+								</td>
 							</tr>
 						</tbody>
 					</table>

@@ -20,6 +20,7 @@ Route::get('home', 'HomeController@index');
 Route::resource('things', 'ThingController');
 Route::resource('reviews', 'ReviewController');
 Route::get('categories', 'CategoryController@index');
+Route::get('categories/{id}', 'CategoryController@show');
 Route::resource('ratings', 'RatingController');
 Route::resource('flag', 'FlagController');
 
@@ -34,10 +35,14 @@ Route::group(array('prefix' => 'api/v1', 'namespace' => 'api\v1'), function()
 });
 
 // Admin-Facing Resource Controllers
-Route::group(array('prefix' => 'admin'), function()
+Route::group(array('prefix' => 'admin', 'namespace' => 'Admin'), function()
 {
 	Route::resource('users', 'UserController');
 	Route::resource('categories', 'CategoryController');
+	Route::resource('things', 'ThingController');
+	Route::resource('reviews', 'ReviewController');
+	Route::resource('flags', 'FlagController');
+	Route::resource('votes', 'VoteController');
 });
 
 // Auth controllers (from Laravel)

@@ -8,7 +8,7 @@ class Thing extends Model {
 
     protected $table = 'things';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['title', 'content','description','category_id','user_id'];
+    protected $fillable = ['title','description','category_id','user_id'];
     
 	public function category(){
 		

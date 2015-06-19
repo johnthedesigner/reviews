@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -7,6 +7,8 @@ use Validator, Input, Redirect, Session, Auth, View;
 use App\Models\Review;
 use App\Models\Rating;
 use App\Models\Thing;
+use App\Models\Flag;
+use App\Models\Comment;
 use App\User;
 
 class ReviewController extends Controller {
@@ -26,7 +28,7 @@ class ReviewController extends Controller {
 	 */
 	public function index()
 	{
-		$reviews = Review::with('user')->get();
+		$reviews = Review::with(array('user','flags','votes','comments'))->get();
 		return view('admin.reviews.index', array('reviews' => $reviews));
 	}
 
@@ -115,7 +117,7 @@ class ReviewController extends Controller {
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('reviews/' . $id . '/edit')
+            return Redirect::to('admin/reviews/' . $id . '/edit')
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
