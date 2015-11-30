@@ -28,7 +28,34 @@ class ReviewController extends Controller {
 	 */
 	public function index()
 	{
-		$reviews = Review::with(array('user','flags','votes','comments'))->get();
+		// Get Reviews, eager load associated models
+		$reviews;
+		$sort_by = Input::get('sort_by');
+		$sort_order = Input::get('sort_order');
+		$with_trashed = Input::get('with_trashed');
+		
+		if ( $with_trashed != true ){
+			$reviews = Review::with(array('user','flags','votes','comments'))->get();
+		} else {
+			$reviews = Review::withTrashed()->with(array('user','flags','votes','comments'))->get();
+		}
+		
+		// Check for sort_by and sort if requested
+		if ( $sort_order === null || $sort_order === 'DESC' ){
+				
+			if ( $sort_by != null ){
+				$reviews = $reviews->sortByDesc( $sort_by );
+			};
+		
+		} else {
+				
+			if ( $sort_by != null ){
+				$reviews = $reviews->sortBy( $sort_by );
+			};
+		
+		}
+		
+		// Return the index view
 		return view('admin.reviews.index', array('reviews' => $reviews));
 	}
 
@@ -119,7 +146,7 @@ class ReviewController extends Controller {
         if ($validator->fails()) {
             return Redirect::to('admin/reviews/' . $id . '/edit')
                 ->withErrors($validator)
-                ->withInput(Input::except('password'));
+                ->withInput();
         } else {
             // Update Review
             $review = Review::find($id);
@@ -155,7 +182,7 @@ class ReviewController extends Controller {
 		$review = Review::find($id);
 		$review->delete();
 		
-		return redirect('admin/reviews')->withMessage('Review Deleted Successfully !!!');
+		return Redirect::back()->withMessage('Review Deleted Successfully !!!');
 	}
 
 }

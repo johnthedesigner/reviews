@@ -20,6 +20,8 @@ class CreateThingsTable extends Migration {
 			$table->softDeletes();
 			$table->string('title');
 			$table->longText('description');
+			$table->integer('votes_count')->default(0);
+			$table->integer('flags_count')->default(0);
 		});
 	}
 

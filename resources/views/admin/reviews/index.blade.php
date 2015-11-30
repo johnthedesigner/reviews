@@ -1,15 +1,18 @@
-@extends('app')
+@extends('admin.admin')
 
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
 
+		<div class="col-md-12">
 			<!-- Create Review -->
 			{!! Form::open(['method'=>'get','action'=>['ReviewController@create']]) !!}
 			 <button type="submit">New Review</button>                      
 			{!! Form::close() !!}
 			<br>
+		</div>
+
+		<div class="col-md-10">
 
 			<div class="panel panel-default">
 
@@ -35,12 +38,12 @@
 						<tbody>
 							@foreach ( $reviews as $review )
 							<tr>
-								<td>{!! $review->title !!}</td>
+								<td>{!! $review->title !!} {!! $review->deleted_at !!}</td>
 								<td>{!! $review->rating['rating'] !!}</td>
 								<td>{!! $review->content !!}</td>
 								<td>{!! $review->thing['title'] !!}</td>
-								<td>{!! $review->flags->count() !!}</td>
-								<td>{!! $review->votes->count() !!}</td>
+								<td>{!! $review->flags_count !!}</td>
+								<td>{!! $review->votes_count !!}</td>
 								<td>{!! $review->comments()->count() !!}</td>
 								<td>{!! $review->user['name'] !!}</td>
 								<td>
@@ -72,6 +75,36 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-md-2">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Sort Reviews
+				</div>
+				<div class="panel-body">
+					{!! Form::open(array('method' => 'GET','action' => 'Admin\ReviewController@index')) !!}
+					
+					    <div class="form-group">
+					        {!! Form::label('sort_by', 'Sort By') !!}
+					        {!! Form::select('sort_by',array(''=>'Select Value','created_at'=>'Created At','updated_at'=>'Updated Date','deleted_at'=>'Deleted Date','votes_count'=>'Vote Count','flags_count'=>'Flag Count','deleted_at'=>'Deleted Date'), Input::get('sort_by'), array('class' => 'form-control')) !!}
+					    </div>
+					
+					    <div class="form-group">
+					        {!! Form::label('sort_order', 'Sort Order') !!}
+					        {!! Form::select('sort_order',array(''=>'Select Order','ASC'=>'Ascending','DESC'=>'Descending'), Input::get('sort_order'), array('class' => 'form-control')) !!}
+					    </div>
+					
+					    <div class="form-group">
+					        {!! Form::label('with_trashed', 'Show Trashed') !!}
+					        {!! Form::checkbox('with_trashed', 'true', Input::get('with_trashed')) !!}
+					    </div>
+					
+					    {!! Form::submit('Sort Reviews', array('class' => 'btn btn-primary')) !!}
+					
+					{!! Form::close() !!}
+				</div>
+			</div>
+		</div>
+		
 	</div>
 </div>
 @endsection

@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration {
 			$table->softDeletes();
 			$table->string('title');
 			$table->longText('description');
+			$table->integer('votes_count')->default(0);
 		});
 	}
 

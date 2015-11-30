@@ -28,4 +28,16 @@ class Thing extends Model {
 
 	}
 	
+	public function flags(){
+		
+		return $this->hasMany('App\Models\Flag');
+
+	}
+	
+	public function votes(){
+		
+		return $this->hasMany('App\Models\Vote');
+
+	}
+	
 }

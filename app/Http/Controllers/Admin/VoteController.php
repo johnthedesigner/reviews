@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator, Input, Redirect, Session, Auth, View;
 use App\Models\Vote;
+use App\Models\Review;
 
 class VoteController extends Controller {
 
@@ -43,6 +44,10 @@ class VoteController extends Controller {
 	 */
 	public function store()
 	{
+	    // Create vote
+	    $review_id = Input::get('review_id');
+	    $thing_id = Input::get('thing_id');
+	    $category_id = Input::get('category_id');
 	    $vote = new Vote([
             'review_id' => Input::get('review_id'),
             'thing_id' => Input::get('thing_id'),
@@ -51,6 +56,22 @@ class VoteController extends Controller {
 	    ]);
 	    $vote=Vote::create($vote->toArray());
 	    
+	    // Increment vote counter
+	    if ( $review_id != null ){
+		    $review = Review::find($review_id);
+		    $review->votes_count = $review->votes()->count();
+		    $review->update();
+	    } elseif ( $thing_id != null ) {
+		    $thing = Thing::find($thing_id);
+		    $thing->votes_count = $thing->votes()->count();
+		    $thing->update();
+	    } elseif ( $category_id != null ) {
+		    $category = Category::find($category_id);
+		    $category->votes_count = $category->votes()->count();
+		    $category->update();
+	    }
+	    
+	    // Back to the last page
 	    return Redirect::back()->with('message','Operation Successful !');
 	}
 

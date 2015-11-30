@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 			$table->longText('comment');
+			$table->integer('flags_count')->default(0);
 		});
 	}
 

@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator, Input, Redirect, Session, Auth, View;
 use App\Models\Flag;
+use App\Models\Review;
+use App\Models\Thing;
+use App\Models\Comment;
 
 class FlagController extends Controller {
 
@@ -43,6 +46,10 @@ class FlagController extends Controller {
 	 */
 	public function store()
 	{
+	    // Create flag
+	    $review_id = Input::get('review_id');
+	    $thing_id = Input::get('thing_id');
+	    $comment_id = Input::get('comment_id');
 	    $flag = new Flag([
             'review_id' => Input::get('review_id'),
             'thing_id' => Input::get('thing_id'),
@@ -51,6 +58,22 @@ class FlagController extends Controller {
 	    ]);
 	    $flag=Flag::create($flag->toArray());
 	    
+	    // Increment flag counter
+	    if ( $review_id != null ){
+		    $review = Review::find($review_id);
+		    $review->flags_count = $review->flags()->count();
+		    $review->update();
+	    } elseif ( $thing_id != null ) {
+		    $thing = Thing::find($thing_id);
+		    $thing->flags_count = $thing->flags()->count();
+		    $thing->update();
+	    } elseif ( $comment_id != null ) {
+		    $comment = Comment::find($comment_id);
+		    $comment->flags_count = $comment->flags()->count();
+		    $comment->update();
+	    }
+	    
+	    // Back to the last page
 	    return Redirect::back()->with('message','Operation Successful !');
 	}
 

@@ -40,6 +40,12 @@ class Review extends Model {
 
 	}
 	
+//	public function votes_count(){
+		
+//		return $this->votes()->count();
+
+//	}
+	
 	public function comments(){
 		
 		return $this->hasMany('App\Models\Comment');

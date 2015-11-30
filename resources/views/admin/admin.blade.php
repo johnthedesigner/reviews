@@ -33,23 +33,21 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/') }}">Home</a></li>
-					<li><a href="{{ url('/reviews') }}">Reviews</a></li>
-					<li><a href="{{ url('/things') }}">Things</a></li>
-					<li><a href="{{ url('/categories/') }}">Categories</a></li>
+					<li><a href="{{ url('/admin') }}">Home</a></li>
+					<li><a href="{{ url('/admin/reviews') }}">Reviews</a></li>
+					<li><a href="{{ url('/admin/things') }}">Things</a></li>
+					<li><a href="{{ url('/admin/categories') }}">Categories</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">Login</a></li>
 						<li><a href="{{ url('/auth/register') }}">Register</a></li>
-						<li><a href="{{ url('/admin/reviews') }}">Admin</a></li>
 					@else
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
-								<li><a href="{{ url('/admin/reviews') }}">Admin</a></li>
 							</ul>
 						</li>
 					@endif

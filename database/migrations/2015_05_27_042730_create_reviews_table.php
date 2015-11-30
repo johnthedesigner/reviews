@@ -20,6 +20,9 @@ class CreateReviewsTable extends Migration {
 			$table->timestamp('published_at')->nullable();
 			$table->string('title')->nullable();
 			$table->longText('content')->nullable();
+			$table->integer('votes_count')->default(0);
+			$table->integer('comments_count')->default(0);
+			$table->integer('flags_count')->default(0);
 		});
 	}
 

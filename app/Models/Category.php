@@ -28,4 +28,10 @@ class Category extends Model {
 
 	}
 	
+	public function votes(){
+		
+		return $this->hasMany('App\Models\Vote');
+
+	}
+	
 }

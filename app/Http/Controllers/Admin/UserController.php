@@ -26,7 +26,7 @@ class UserController extends Controller {
 	public function index()
 	{
 		$users = User::with('reviews')->get();
-		return view('users.index', array('users' => $users));
+		return view('admin.users.index', array('users' => $users));
 	}
 
 	/**
